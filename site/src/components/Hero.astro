@@ -237,9 +237,9 @@ const raycastMark = raycast
     position: relative;
     display: inline-block;
     white-space: nowrap;
-    /* The words run from the mash's cream to the butter's yellow, the two
-       colours of the app icon. */
-    background: linear-gradient(90deg, var(--app-icon-mash), var(--butter));
+    /* "Mash" is in the butter's yellow, and the words after it fade to the
+       mash's cream: the two colours of the app icon, the weight on the name. */
+    background: linear-gradient(90deg, var(--butter) 36%, var(--app-icon-mash));
     background-clip: text;
     color: transparent;
   }

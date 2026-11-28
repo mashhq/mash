@@ -382,10 +382,10 @@ for (const [name, viewport] of [
       return (Math.max(page, line) + 0.05) / (Math.min(page, line) + 0.05);
     });
     expect(contrast).toBeGreaterThanOrEqual(3);
-    // The claim's words run from the mash's cream to the butter's yellow.
+    // "Mash" is in the butter's yellow; the words after it fade to the mash's cream.
     await expect(lines.nth(1).locator(".accent")).toHaveCSS(
       "background-image",
-      "linear-gradient(90deg, rgb(255, 241, 208), rgb(245, 200, 75))",
+      "linear-gradient(90deg, rgb(245, 200, 75) 36%, rgb(255, 241, 208))",
     );
     await expect(lines.nth(1).locator(".accent")).toHaveCSS("background-clip", "text");
     await expect(lines.nth(1).locator(".accent")).toHaveCSS("color", "rgba(0, 0, 0, 0)");
