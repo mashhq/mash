@@ -24,15 +24,35 @@ const left = (band: Locator) => track(band).evaluate((node) => node.scrollLeft);
 const off = async (band: Locator, count: number, step: number) =>
   Math.abs((await left(band)) - count * step);
 
-test("the plugin band comes straight after the agents row, before the surfaces", async ({
+test("the plugin band comes straight after the agents row, and the surfaces after Mashy", async ({
   page,
 }) => {
   await page.goto("/");
   const order = await page
     .locator(".mash-welcome > *")
-    .evaluateAll((nodes) => nodes.slice(0, 3).map((node) => node.id || node.className));
+    .evaluateAll((nodes) => nodes.slice(0, 6).map((node) => node.id || node.className));
   expect(order[0]).toContain("mash-agents");
-  expect(order.slice(1)).toEqual(["welcome-plugin", "welcome-surfaces"]);
+  expect(order.slice(1)).toEqual([
+    "welcome-plugin",
+    "welcome-shortcuts",
+    "welcome-mashy",
+    "welcome-surfaces",
+    "welcome-speed",
+  ]);
+  // Each card's words come under its picture, one line of them.
+  const card = page.locator("#welcome-plugin [data-flow-card]").first();
+  const [picture, words] = [
+    await card.locator(".flow-picture").boundingBox(),
+    await card.locator(".flow-foot").boundingBox(),
+  ];
+  expect(words?.y).toBeGreaterThanOrEqual((picture?.y ?? 0) + (picture?.height ?? 0));
+  for (const says of await page.locator("#welcome-plugin .flow-says").all()) {
+    const lines = await says.evaluate(
+      (node) =>
+        node.getBoundingClientRect().height / Number.parseFloat(getComputedStyle(node).lineHeight),
+    );
+    expect(Math.round(lines)).toBe(1);
+  }
   const band = page.locator("#welcome-plugin");
   await expect(band.getByRole("heading", { level: 2 })).toHaveText(
     "Start in one agent. Finish in another.",
