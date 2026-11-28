@@ -32,9 +32,9 @@ test("the landing page says what Mash is and which agents it reads", async ({ pa
   ]);
   await expect(page.locator(".mash-welcome h2")).toHaveText([
     "Start in one agent. Finish in another.",
-    "One history. Everywhere you work.",
     "Take shortcuts, not detours.",
     "Meet Mashy. Ask him anything about your chats.",
+    "One history. Everywhere you work.",
     "Fast, and light on your machine.",
     "Self-hosted, end to end. No cloud. No account.",
     "Written with <3 in Rust.",
