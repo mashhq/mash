@@ -103,6 +103,15 @@ curl -fsSL https://raw.githubusercontent.com/mashhq/mash/main/install.sh | sh -s
 
 Open the link the installer shows you and leave the terminal open.
 
+Prefer a package manager? Mash is also on
+[Homebrew](docs/install-methods.md#homebrew-macos-or-linux),
+[apt](docs/install-methods.md#apt-debian-or-ubuntu),
+[Scoop](docs/install-methods.md#scoop-windows),
+[mise](docs/install-methods.md#mise) and
+[cargo-binstall](docs/install-methods.md#cargo-binstall). A package installs
+Mash without starting setup, so [start the search service and finish setup](docs/installation.md#start-the-local-search-service)
+afterwards.
+
 ### Choose what Mash reads
 
 Setup lists the agent histories it found on this machine. Pick the agents,
