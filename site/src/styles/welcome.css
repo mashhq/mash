@@ -274,18 +274,6 @@
     margin-inline-start: 0.5ch;
   }
 
-  /* Privacy: words alone. The heading takes the windows' column and the
-     paragraph the words' column, so it lines up with the bands above. */
-  .split.plain {
-    row-gap: 1.125rem;
-  }
-  .plain .head,
-  .aside {
-    display: flex;
-    flex-direction: column;
-    gap: 1.125rem;
-  }
-
   /* Open source: the words beside Ferris, with the projects Mash is built on under him. */
   .rust-art {
     display: flex;

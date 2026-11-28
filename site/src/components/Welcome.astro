@@ -23,6 +23,7 @@ import AppIcon from "./AppIcon.astro";
 import LineIcon from "./LineIcon.astro";
 import OsMark from "./OsMark.astro";
 import PluginSteps from "./PluginSteps.astro";
+import PrivacyPicture from "./PrivacyPicture.astro";
 import Surfaces from "./Surfaces.astro";
 
 /** Ferris, his strokes and solids in his own orange. */
@@ -265,12 +266,10 @@ const quick: {
   </section>
 
   <section class="band" id="welcome-privacy" aria-labelledby="welcome-privacy-title">
-    <div class="wrapper split plain" data-reveal>
-      <div class="head">
+    <div class="wrapper split" data-reveal>
+      <div class="words">
         <span class="kicker">Privacy</span>
         <h2 id="welcome-privacy-title">Self-hosted, end to end. <span class="quiet">No cloud. No account.</span></h2>
-      </div>
-      <div class="aside">
         <p class="blurb">
           Indexing and search run on your machine, and work offline once the local search service
           is running. Sharing, remote workers and Mashy stay off until you turn each one on,
@@ -280,6 +279,7 @@ const quick: {
         </p>
         <a class="more" href="/privacy/">How Mash handles your history ›</a>
       </div>
+      <PrivacyPicture />
     </div>
   </section>
 

@@ -1,0 +1,113 @@
+---
+// The privacy band's picture: what is on and off on a machine as Mash is
+// first set up. The three things that send anything elsewhere are off, and
+// the masking of keys and tokens is on. A drawing of the defaults the band's
+// paragraph states, not of a real page.
+import LineIcon from "./LineIcon.astro";
+
+const settings = [
+  { name: "Share with your other machines", on: false },
+  { name: "Remote workers", on: false },
+  { name: "Mashy, the assistant", on: false },
+  { name: "Mask keys and tokens", on: true },
+];
+---
+
+<div
+  class="private"
+  role="img"
+  aria-label="This machine as Mash is first set up: it works offline, sharing, remote workers and Mashy are off, and masking of keys and tokens is on"
+>
+  <div class="private-h">
+    <LineIcon name="laptop" size="1.125rem" />
+    <b>This machine</b>
+    <span class="pill ok"><LineIcon name="check" size="0.75rem" />Works offline</span>
+  </div>
+  {settings.map(({ name, on }) => (
+    <div class="setting" class:list={{ on }}>
+      <span>{name}</span>
+      <small>{on ? "On" : "Off"}</small>
+      <i class="switch"></i>
+    </div>
+  ))}
+</div>
+
+<style>
+  .private {
+    display: flex;
+    flex-direction: column;
+    width: min(26rem, 100%);
+    justify-self: center;
+    overflow: hidden;
+    border-radius: var(--radius-8);
+    background: var(--surface-raised);
+    box-shadow: var(--shadow-card);
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+  .private-h {
+    display: flex;
+    align-items: center;
+    gap: 0.5625rem;
+    padding: 1rem 1.25rem;
+    border-bottom: var(--border-divider);
+    color: var(--text-strong);
+  }
+  .private-h b {
+    font-weight: 600;
+  }
+  .private-h .pill {
+    margin-inline-start: auto;
+  }
+  .setting {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.25rem;
+  }
+  .setting + .setting {
+    border-top: var(--border-divider);
+  }
+  .setting span {
+    flex: 1;
+    min-width: 0;
+  }
+  .setting small {
+    color: var(--text-faint);
+    font-size: 0.8125rem;
+  }
+  /* The one thing that is on is the one thing in full ink. */
+  .setting.on span,
+  .setting.on small {
+    color: var(--text-strong);
+  }
+  /* A switch as the dashboard draws one: a track with its knob at one end. */
+  .switch {
+    position: relative;
+    flex: none;
+    width: 2.25rem;
+    height: 1.25rem;
+    border-radius: var(--radius-pill);
+    background: var(--surface-muted);
+    box-shadow: var(--shadow-ring-inset);
+  }
+  .switch::after {
+    position: absolute;
+    top: 0.1875rem;
+    left: 0.1875rem;
+    width: 0.875rem;
+    height: 0.875rem;
+    border-radius: var(--radius-round);
+    background: var(--text-faint);
+    content: "";
+  }
+  .on .switch {
+    background: var(--butter);
+    box-shadow: none;
+  }
+  .on .switch::after {
+    left: auto;
+    right: 0.1875rem;
+    background: var(--text-on-butter);
+  }
+</style>

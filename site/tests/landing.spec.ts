@@ -49,7 +49,8 @@ test("the landing page says what Mash is and which agents it reads", async ({ pa
   await expect(shortcut.locator("kbd")).toHaveText(["⌥", "⇧", "Space"]);
   // No band lists what it does.
   await expect(page.locator(".mash-welcome .words :is(ul, ol)")).toHaveCount(0);
-  // So does the privacy band: one paragraph with the caveat about backups, then the way onward.
+  // So does the privacy band: one paragraph with the caveat about backups, then the way onward,
+  // beside a picture of what is on and off as Mash is first set up.
   const privacy = page.locator("#welcome-privacy");
   await expect(privacy.locator("h2")).toHaveText("Self-hosted, end to end. No cloud. No account.");
   await expect(privacy.locator(".blurb")).toHaveText(
@@ -61,11 +62,21 @@ test("the landing page says what Mash is and which agents it reads", async ({ pa
   );
   await expect(privacy.locator(".blurb + a")).toHaveText("How Mash handles your history ›");
   await expect(privacy.locator(".blurb + a")).toHaveAttribute("href", "/privacy/");
-  await expect(privacy.locator(":is(ul, ol, h3, svg)")).toHaveCount(0);
+  await expect(privacy.locator(":is(ul, ol, h3)")).toHaveCount(0);
+  const defaults = privacy.getByRole("img");
+  await expect(defaults).toHaveAccessibleName(
+    /works offline.*are off.*masking of keys and tokens is on/,
+  );
+  await expect(defaults.locator(".setting")).toHaveText([
+    /^Share with your other machines\s*Off$/,
+    /^Remote workers\s*Off$/,
+    /^Mashy, the assistant\s*Off$/,
+    /^Mask keys and tokens\s*On$/,
+  ]);
   // The windows are drawn in HTML, each one image named for what it shows.
   const illustrations = page.locator(".mash-welcome [role=img]");
   // Five of them are the showcase's surfaces, of which one shows at a time.
-  await expect(illustrations).toHaveCount(7);
+  await expect(illustrations).toHaveCount(8);
   for (const illustration of await illustrations.all()) {
     await expect(illustration).toHaveAttribute("aria-label", /\w/);
   }
@@ -568,7 +579,7 @@ test("the welcome page shows everything without scripting", async ({ browser }) 
   const welcome = page.locator(".mash-welcome");
   // The showcase's surfaces aside (surfaces.spec.ts): one of those shows at a time.
   const windows = welcome.locator("[role=img]:not(.picture)");
-  await expect(windows).toHaveCount(2);
+  await expect(windows).toHaveCount(3);
   await expect(windows.nth(1)).toHaveAccessibleName(/Three example questions/);
   await expect(welcome.locator(".ico svg").first()).toBeVisible();
   for (const picture of await windows.all()) await expect(picture).toBeVisible();
